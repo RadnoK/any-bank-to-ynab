@@ -33,8 +33,6 @@ final class TranslateMBankTransactions extends Command
         $this
             ->setDescription('This is mBank transactions translator for YNAB. It parses transactions from bank .csv to one accepted and understood by YNAB.')
             ->addArgument('source-file', InputArgument::REQUIRED,  'mBank .csv file path with transactions.')
-            ->addArgument('start-date', InputArgument::OPTIONAL, 'Day of the month from which transactions will be parsed.')
-            ->addArgument('last-date', InputArgument::OPTIONAL, 'Last day of the month to which transactions will be parsed.')
         ;
     }
 
