@@ -5,6 +5,10 @@ declare(strict_types=1);
 namespace RadnoK\YNABTranslator\Model\MBank;
 
 use Assert\Assertion;
+use DateTime;
+use DateTimeInterface;
+use function chr;
+use function str_replace;
 
 final class Transaction
 {
@@ -50,41 +54,41 @@ final class Transaction
         Assertion::regex($total, '/\-?[0-9 ]+,[0-9]+/');
 
         $this->operationDate = $operationDate;
-        $this->postingDate = $postingDate;
-        $this->description = $description;
-        $this->title = $title;
-        $this->payee = $payee;
+        $this->postingDate   = $postingDate;
+        $this->description   = $description;
+        $this->title         = $title;
+        $this->payee         = $payee;
         $this->accountNumber = $accountNumber;
-        $this->amount = $amount;
-        $this->total = $total;
+        $this->amount        = $amount;
+        $this->total         = $total;
     }
 
-    public static function fromArray(array $data): self
+    public static function fromArray(array $data) : self
     {
         Assertion::count($data, self::TOTAL_COLUMNS);
 
         return new self(...$data);
     }
 
-    public function operationDate(): \DateTimeInterface
+    public function operationDate() : DateTimeInterface
     {
-        return new \DateTime($this->operationDate);
+        return new DateTime($this->operationDate);
     }
 
-    public function title(): string
+    public function title() : string
     {
         return $this->convertTitleCharacters($this->title);
     }
 
-    public function amount(): float
+    public function amount() : float
     {
-        return (float) \str_replace([',', ' '], ['.', ''], $this->amount);
+        return (float) str_replace([',', ' '], ['.', ''], $this->amount);
     }
 
     /**
      * @TODO Find a better way. This is a first Google Search approach as it is not a key feature.
      */
-    private function convertTitleCharacters(string $value): string
+    private function convertTitleCharacters(string $value) : string
     {
         $mBankSickCharacters = [
             chr(0xB1),

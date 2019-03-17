@@ -9,5 +9,5 @@ use RadnoK\YNABTranslator\Model\MBank;
 
 interface OutflowParserInterface
 {
-    public function parse(MBank\Transaction $transaction): ?Money;
+    public function parse(MBank\Transaction $transaction) : ?Money;
 }

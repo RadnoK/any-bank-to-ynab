@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace RadnoK\YNABTranslator\Model\YNAB;
 
-use Money\Currency;
+use DateTime;
+use DateTimeInterface;
 use Money\Money;
 use RadnoK\YNABTranslator\Exception\TransactionCannotBeNegative;
 use RadnoK\YNABTranslator\Exception\TransactionCannotBeZero;
@@ -12,23 +13,23 @@ use RadnoK\YNABTranslator\Exception\TransactionCannotHaveMultipleOperations;
 
 final class Transaction
 {
-    /** @var \DateTime */
+    /** @var DateTime */
     private $date;
 
-    /** @var null|string */
+    /** @var string|null */
     private $payee;
 
-    /** @var null|string */
+    /** @var string|null */
     private $memo;
 
-    /** @var null|string */
+    /** @var string|null */
     private $inflow;
 
-    /** @var null|string */
+    /** @var string|null */
     private $outflow;
 
     public function __construct(
-        \DateTimeInterface $date,
+        DateTimeInterface $date,
         ?string $payee,
         ?string $memo,
         ?Money $inflow = null,
@@ -36,47 +37,47 @@ final class Transaction
     ) {
         $this->validateTransaction($inflow, $outflow);
 
-        $this->date = $date;
-        $this->payee = $payee;
-        $this->memo = $memo;
-        $this->inflow = $inflow;
+        $this->date    = $date;
+        $this->payee   = $payee;
+        $this->memo    = $memo;
+        $this->inflow  = $inflow;
         $this->outflow = $outflow;
     }
 
-    public function date(): \DateTimeInterface
+    public function date() : DateTimeInterface
     {
         return $this->date;
     }
 
-    public function payee(): ?string
+    public function payee() : ?string
     {
         return $this->payee;
     }
 
-    public function memo(): ?string
+    public function memo() : ?string
     {
         return $this->memo;
     }
 
-    public function inflowAmount(): ?float
+    public function inflowAmount() : ?float
     {
-        if (null === $this->inflow) {
+        if ($this->inflow === null) {
             return null;
         }
 
         return (float) $this->inflow->getAmount();
     }
 
-    public function outflowAmount(): ?float
+    public function outflowAmount() : ?float
     {
-        if (null === $this->outflow) {
+        if ($this->outflow === null) {
             return null;
         }
 
         return (float) $this->outflow->getAmount();
     }
 
-    public function toArray(): array
+    public function toArray() : array
     {
         return [
             'date' => $this->date()->format('Y-m-d'),
@@ -87,9 +88,9 @@ final class Transaction
         ];
     }
 
-    private function validateTransaction(?Money $inflow, ?Money $outflow): void
+    private function validateTransaction(?Money $inflow, ?Money $outflow) : void
     {
-        if (null === $inflow && null === $outflow) {
+        if ($inflow === null && $outflow === null) {
             throw new TransactionCannotBeZero();
         }
 

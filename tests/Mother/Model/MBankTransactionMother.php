@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Tests\RadnoK\YNABTranslator\Mother\Model;
 
+use DateTimeInterface;
 use RadnoK\YNABTranslator\Model\MBank\Transaction;
+use function sprintf;
 
 final class MBankTransactionMother
 {
-    public static function titled(string $title): Transaction
+    public static function titled(string $title) : Transaction
     {
         return Transaction::fromArray([
             '2019-01-31',
@@ -23,7 +25,7 @@ final class MBankTransactionMother
         ]);
     }
 
-    public static function outcome(string $amount): Transaction
+    public static function outcome(string $amount) : Transaction
     {
         return Transaction::fromArray([
             '2019-01-31',
@@ -38,7 +40,7 @@ final class MBankTransactionMother
         ]);
     }
 
-    public static function income(string $amount): Transaction
+    public static function income(string $amount) : Transaction
     {
         return Transaction::fromArray([
             '2019-01-31',
@@ -53,13 +55,16 @@ final class MBankTransactionMother
         ]);
     }
 
-    public static function datedIncome(\DateTimeInterface $operationDate): Transaction
+    public static function datedIncome(DateTimeInterface $operationDate) : Transaction
     {
         return Transaction::fromArray([
             $operationDate->format('Y-m-d'),
             $operationDate->format('Y-m-d'),
             'ZAKUP PRZY UŻYCIU KARTY',
-            sprintf('ZABKA    /LODZ                                              DATA TRANSAKCJI: %s', $operationDate->format('Y-m-d')),
+            sprintf(
+                'ZABKA    /LODZ                                              DATA TRANSAKCJI: %s',
+                $operationDate->format('Y-m-d')
+            ),
             '',
             '',
             '-8,48',
@@ -69,14 +74,17 @@ final class MBankTransactionMother
     }
 
     public static function datedOutcome(
-        \DateTimeInterface $operationDate,
-        \DateTimeInterface $transactionDate
-    ): Transaction {
+        DateTimeInterface $operationDate,
+        DateTimeInterface $transactionDate
+    ) : Transaction {
         return Transaction::fromArray([
             $operationDate->format('Y-m-d'),
             $operationDate->format('Y-m-d'),
             'ZAKUP PRZY UŻYCIU KARTY',
-            sprintf('ZABKA    /LODZ                                              DATA TRANSAKCJI: %s', $transactionDate->format('Y-m-d')),
+            sprintf(
+                'ZABKA    /LODZ                                              DATA TRANSAKCJI: %s',
+                $transactionDate->format('Y-m-d')
+            ),
             '',
             '',
             '-8,48',

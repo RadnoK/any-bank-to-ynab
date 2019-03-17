@@ -4,3 +4,6 @@
 !/bin/console
 /.env
 /phpunit.xml
+/.phpunit.*
+/phpcs.xml
+/.phpcs-cache

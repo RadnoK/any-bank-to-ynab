@@ -10,7 +10,7 @@ use RadnoK\YNABTranslator\Model\MBank;
 
 final class InflowParser implements InflowParserInterface
 {
-    public function parse(MBank\Transaction $transaction): ?Money
+    public function parse(MBank\Transaction $transaction) : ?Money
     {
         $amount = $transaction->amount();
 

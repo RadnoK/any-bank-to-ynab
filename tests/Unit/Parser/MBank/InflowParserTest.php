@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\RadnoK\YNABTranslator\Parser\MBank;
+namespace Tests\RadnoK\YNABTranslator\Unit\Parser\MBank;
 
 use Money\Currency;
 use Money\Money;
@@ -15,7 +15,7 @@ final class InflowParserTest extends TestCase
     /**
      * @dataProvider inflowValuesProvider
      */
-    public function test_parsing_an_inflow_value(string $inputAmount, float $outputAmount): void
+    public function test_parsing_an_inflow_value(string $inputAmount, float $outputAmount) : void
     {
         $parser = new InflowParser();
 
@@ -27,7 +27,7 @@ final class InflowParserTest extends TestCase
         );
     }
 
-    public function inflowValuesProvider(): array
+    public function inflowValuesProvider() : array
     {
         return [
             ['8,48', 8.48],

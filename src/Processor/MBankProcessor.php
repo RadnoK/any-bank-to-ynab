@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace RadnoK\YNABTranslator\Processor;
 
-use League\Csv\CharsetConverter;
 use League\Csv\Reader;
 use League\Csv\Statement;
 use League\Csv\Writer;
-use RadnoK\YNABTranslator\Converter\TransactionsConverterInterface;
+use RadnoK\YNABTranslator\Converter\TransactionsConverter;
+use function sprintf;
+use function time;
 
-final class MBankProcessor implements ProcessorInterface
+final class MBankProcessor implements Processor
 {
     private const DELIMITER = ';';
 
@@ -24,7 +25,7 @@ final class MBankProcessor implements ProcessorInterface
      */
     private const LIMIT_OFFSET = 3;
 
-    /** @var TransactionsConverterInterface */
+    /** @var TransactionsConverter */
     private $transactionsConverter;
 
     /** @var string */
@@ -34,24 +35,23 @@ final class MBankProcessor implements ProcessorInterface
     private $outputDirectory;
 
     public function __construct(
-        TransactionsConverterInterface $transactionsConverter,
+        TransactionsConverter $transactionsConverter,
         string $projectDirectory,
         string $outputDirectory
     ) {
         $this->transactionsConverter = $transactionsConverter;
-        $this->projectDirectory = $projectDirectory;
-        $this->outputDirectory = $outputDirectory;
+        $this->projectDirectory      = $projectDirectory;
+        $this->outputDirectory       = $outputDirectory;
     }
 
-    public function process(string $sourceFilePath): void
+    public function process(string $sourceFilePath) : void
     {
         $inputCsvFile = Reader::createFromPath($sourceFilePath);
         $inputCsvFile->setDelimiter(self::DELIMITER);
 
         $statement = (new Statement())
             ->offset(self::START_OFFSET)
-            ->limit($inputCsvFile->count() - self::START_OFFSET - self::LIMIT_OFFSET)
-        ;
+            ->limit($inputCsvFile->count() - self::START_OFFSET - self::LIMIT_OFFSET);
 
         $originalTransactions = $statement->process($inputCsvFile);
 
@@ -62,7 +62,7 @@ final class MBankProcessor implements ProcessorInterface
         $outputCsvFile->insertAll($transactions->all());
     }
 
-    private function outputFileName(): string
+    private function outputFileName() : string
     {
         return sprintf('%s/%s/%s.csv', $this->projectDirectory, $this->outputDirectory, time());
     }

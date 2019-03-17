@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\RadnoK\YNABTranslator\Model\YNAB;
+namespace Tests\RadnoK\YNABTranslator\Unit\Model\YNAB;
 
+use DateTime;
 use Money\Currency;
 use Money\Money;
 use PHPUnit\Framework\TestCase;
@@ -11,13 +12,13 @@ use RadnoK\YNABTranslator\Model\YNAB\Transaction;
 
 final class TransactionTest extends TestCase
 {
-    public function test_creating_an_inflow_transaction(): void
+    public function testCreatingInflowTransaction() : void
     {
         $transaction = new Transaction(
-            $date = new \DateTime('now'),
-            $payee = null,
-            $memo = 'super transaction!',
-            $inflow = new Money(10, new Currency('PLN')),
+            $date    = new DateTime('now'),
+            $payee   = null,
+            $memo    = 'super transaction!',
+            $inflow  = new Money(10, new Currency('PLN')),
             $outflow = null
         );
 

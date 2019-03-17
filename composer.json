@@ -30,6 +30,7 @@
         "symfony/dotenv": "^4.2"
     },
     "require-dev": {
+        "doctrine/coding-standard": "^6.0",
         "infection/infection": "^0.12",
         "phpstan/phpstan": "^0.11.2",
         "phpunit/phpunit": "^8.0",
@@ -40,8 +41,16 @@
         "sort-packages": true
     },
     "scripts": {
-        "test": [
-            ""
+        "php:analyse": [
+            "bin/phpstan analyse src tests",
+            "bin/phpcs --standard=Doctrine src tests"
+        ],
+        "php:fix-code": [
+            "bin/phpcbf --standard=Doctrine src tests"
+        ],
+        "php:tests": [
+            "@php:analyse",
+            "bin/phpunit --colors=always"
         ]
     }
 }

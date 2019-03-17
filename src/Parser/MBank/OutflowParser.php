@@ -7,10 +7,11 @@ namespace RadnoK\YNABTranslator\Parser\MBank;
 use Money\Currency;
 use Money\Money;
 use RadnoK\YNABTranslator\Model\MBank;
+use function abs;
 
 final class OutflowParser implements OutflowParserInterface
 {
-    public function parse(MBank\Transaction $transaction): ?Money
+    public function parse(MBank\Transaction $transaction) : ?Money
     {
         $amount = $transaction->amount();
 
@@ -18,6 +19,6 @@ final class OutflowParser implements OutflowParserInterface
             return null;
         }
 
-        return new Money(\abs($amount), new Currency('PLN'));
+        return new Money(abs($amount), new Currency('PLN'));
     }
 }

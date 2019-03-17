@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\RadnoK\YNABTranslator\Parser\MBank;
+namespace Tests\RadnoK\YNABTranslator\Unit\Parser\MBank;
 
 use Money\Currency;
 use Money\Money;
@@ -12,7 +12,7 @@ use Tests\RadnoK\YNABTranslator\Mother\Model\MBankTransactionMother;
 
 final class OutflowParserTest extends TestCase
 {
-    public function test_parsing_an_outflow_value(): void
+    public function test_parsing_an_outflow_value() : void
     {
         $parser = new OutflowParser();
 

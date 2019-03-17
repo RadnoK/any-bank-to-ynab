@@ -8,5 +8,5 @@ use RadnoK\YNABTranslator\Model\MBank;
 
 interface MemoParserInterface
 {
-    public function parse(MBank\Transaction $transaction): string;
+    public function parse(MBank\Transaction $transaction) : string;
 }

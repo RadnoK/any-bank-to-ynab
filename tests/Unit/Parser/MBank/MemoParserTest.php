@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\RadnoK\YNABTranslator\Parser\MBank;
+namespace Tests\RadnoK\YNABTranslator\Unit\Parser\MBank;
 
 use PHPUnit\Framework\TestCase;
 use RadnoK\YNABTranslator\Parser\MBank\MemoParser;
@@ -13,7 +13,7 @@ final class MemoParserTest extends TestCase
     /**
      * @dataProvider
      */
-    public function test_parsing_valid_string(): void
+    public function test_parsing_valid_string() : void
     {
         $parser = new MemoParser();
 
@@ -22,7 +22,7 @@ final class MemoParserTest extends TestCase
         self::assertEquals('Zabka    ', $result);
     }
 
-    public function memoValuesProvider(): array
+    public function memoValuesProvider() : array
     {
         return [
             [

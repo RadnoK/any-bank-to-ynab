@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace RadnoK\YNABTranslator\Converter;
 
-use RadnoK\YNABTranslator\Model\YNAB;
 use RadnoK\YNABTranslator\Model\MBank;
+use RadnoK\YNABTranslator\Model\YNAB;
 use RadnoK\YNABTranslator\Parser;
 
-final class MBankTransactionsConverter implements TransactionsConverterInterface
+final class MBankTransactionsConverter implements TransactionsConverter
 {
     /** @var Parser\MBank\DateParserInterface */
     private $dateParser;
@@ -28,18 +28,18 @@ final class MBankTransactionsConverter implements TransactionsConverterInterface
         Parser\MBank\InflowParserInterface $inflowParser,
         Parser\MBank\OutflowParserInterface $outflowParser
     ) {
-        $this->dateParser = $dateParser;
-        $this->memoParser = $memoParser;
-        $this->inflowParser = $inflowParser;
+        $this->dateParser    = $dateParser;
+        $this->memoParser    = $memoParser;
+        $this->inflowParser  = $inflowParser;
         $this->outflowParser = $outflowParser;
     }
 
-    public function convert(iterable $originalTransactions): YNAB\Transactions
+    public function convert(iterable $originalTransactions) : YNAB\Transactions
     {
         return new YNAB\Transactions(...$this->parseOriginalTransactions($originalTransactions));
     }
 
-    private function parseOriginalTransactions(iterable $originalTransactions): iterable
+    private function parseOriginalTransactions(iterable $originalTransactions) : iterable
     {
         foreach ($originalTransactions as $transaction) {
             $mBankTransaction = MBank\Transaction::fromArray($transaction);
