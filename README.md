@@ -1,11 +1,10 @@
 # YNAB Translator
 
-This is a simple library to translate your bank exported transactions (csv file) to YNAB format
+This is a simple library to translate your bank exported transactions (as a csv file) to YNAB format.
 
 ### Currently supported Banks:
 
-- mBank (Poland) - `mbank`
-
+- mBank (Poland)
 
 ## Installation
 
@@ -16,10 +15,10 @@ $ composer install
 
 ## Usage
 
+#### mBank
 ```bash
-$ bin/console radnok:ynab-translator:<bank-name> <csv-file-path> [<start-date>] [<last-date>]
+$ bin/console radnok:ynab-translator:mbank <csv-file-path>
 ```
-
 
 ## Development
 
@@ -29,3 +28,6 @@ Running tests:
 $ composer tests
 ```
 
+## Contributing
+
+Any contributions are welcome.
