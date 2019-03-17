@@ -1,0 +1,27 @@
+#!/usr/bin/env php
+<?php
+
+require __DIR__.'/../vendor/autoload.php';
+
+use RadnoK\YNABTranslator\Cli\TranslateMBankTransactions;
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\Console\Application;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\Dotenv\Dotenv;
+
+$dotenv = new Dotenv();
+$dotenv->load(__DIR__.'/../.env');
+
+$containerBuilder = new ContainerBuilder();
+$containerBuilder->setParameter('project_dir', __DIR__ . '/../');
+$containerBuilder->setParameter('output_dir', $_ENV['CSV_OUTPUT_DIR']);
+
+$loader = new XmlFileLoader($containerBuilder, new FileLocator(__DIR__.'/../config/'));
+$loader->load('services.xml');
+
+$containerBuilder->compile();
+
+$application = new Application();
+$application->add($containerBuilder->get(TranslateMBankTransactions::class));
+$application->run();

@@ -1,0 +1,47 @@
+{
+    "name": "radnok/ynab-translator",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Konrad Alfaro",
+            "email": "alfaro.konrad@gmail.com",
+            "homepage": "https://radnok.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "RadnoK\\YNABTranslator\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\RadnoK\\YNABTranslator\\": "tests/"
+        }
+    },
+    "require": {
+        "php": ">=7.2",
+        "beberlei/assert": "^3.2",
+        "jorijn/ynab-sdk-php": "^1.0",
+        "league/csv": "^9.1",
+        "money/money": "^2.0",
+        "symfony/config": "^4.2",
+        "symfony/console": "^4.2",
+        "symfony/dependency-injection": "^4.2",
+        "symfony/dotenv": "^4.2"
+    },
+    "require-dev": {
+        "infection/infection": "^0.12",
+        "phpstan/phpstan": "^0.11.2",
+        "phpunit/phpunit": "^8.0",
+        "roave/security-advisories": "dev-master"
+    },
+    "config": {
+        "bin-dir": "bin/",
+        "sort-packages": true
+    },
+    "scripts": {
+        "test": [
+            ""
+        ]
+    }
+}

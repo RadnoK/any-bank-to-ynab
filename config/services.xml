@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <imports>
+        <import resource="services/**/*.xml"/>
+    </imports>
+
+    <services>
+        <service id="RadnoK\YNABTranslator\Converter\MBankTransactionsConverter">
+            <argument type="service" id="RadnoK\YNABTranslator\Parser\MBank\DateParserInterface" />
+            <argument type="service" id="RadnoK\YNABTranslator\Parser\MBank\MemoParserInterface" />
+            <argument type="service" id="RadnoK\YNABTranslator\Parser\MBank\InflowParserInterface" />
+            <argument type="service" id="RadnoK\YNABTranslator\Parser\MBank\OutflowParserInterface" />
+        </service>
+
+        <service id="RadnoK\YNABTranslator\Processor\MBankProcessor">
+            <argument type="service" id="RadnoK\YNABTranslator\Converter\MBankTransactionsConverter" />
+            <argument type="string">%project_dir%</argument>
+            <argument type="string">%output_dir%</argument>
+        </service>
+
+        <service id="RadnoK\YNABTranslator\Cli\TranslateMBankTransactions" public="true">
+            <argument type="service" id="RadnoK\YNABTranslator\Processor\MBankProcessor" />
+            <tag name="console.command" commannd="asd" />
+        </service>
+    </services>
+</container>

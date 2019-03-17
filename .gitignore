@@ -1,0 +1,6 @@
+/vendor/
+/var/parsed
+/bin/*
+!/bin/console
+/.env
+/phpunit.xml
